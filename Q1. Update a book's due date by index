@@ -1,0 +1,54 @@
+/*Q1. Emma is managing a library system where she needs to update the due dates of borrowed books. She requires an application that allows her
+to update the due date of a specific book by its index. However, she wants the application to handle situations where users enter invalid
+indices.
+Write a Java program to assist Emma in updating the due dates of books in the library system.
+Input Format:
+
+• The first line contains a positive integer representing the number of books in the library.
+
+• The second line contains space-separated strings representing the titles of the books.
+
+• The third line contains space-separated strings representing the due dates of the books.
+
+• The fourth line contains an integer representing the index of the book for which the due date needs to be updated.
+
+• The fifth line contains a string representing the new due date for the book.
+
+Output Format:
+
+• If the provided index is valid, print the updated due dates of all books on a single line, separated by a space. The due date at the
+specified index must be replaced with the new due date. Print a space after each due date, including the last one, followed by a
+newline.
+
+• If the provided index is invalid (negative or greater than or equal to the number of books), print the following error message on a
+separate line:
+
+Error: Index is out of bounds
+Note: The book index is zero-based. Only the due date at the specified index should be updated; all other due dates must remain unchanged.
+*/
+import java.util.Scanner;
+ 
+public class LibraryDueDates {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+        String[] titles = sc.nextLine().trim().split("\\s+");
+        String[] dueDates = sc.nextLine().trim().split("\\s+");
+        int index = Integer.parseInt(sc.nextLine().trim());
+        String newDate = sc.nextLine().trim();
+        try {
+            if (index < 0 || index >= n) {
+                throw new ArrayIndexOutOfBoundsException("Index is out of bounds");
+            }
+            dueDates[index] = newDate;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                sb.append(dueDates[i]).append(" ");   // space after every date
+            }
+            System.out.println(sb);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Index is out of bounds");
+        }
+        sc.close();
+    }
+}
