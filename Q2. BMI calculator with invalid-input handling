@@ -1,0 +1,46 @@
+/*Q2. Aanya is working on a body mass index (BMI) calculator. Write a Java program that prompts the user to enter their weight in kilograms and
+height in meters. Handle the exception if any of the inputs cannot be parsed into a double. Calculate the BMI and print the result. If any
+input is invalid, print "Error: Invalid input".
+[BMI = Weight / (Height × Height)]
+
+Input Format:
+
+• The first line contains a string representing the weight in kilograms. It must be convertible to a valid double value.
+
+• The second line contains a string representing the height in meters. It must be convertible to a valid double value.
+Output Format:
+
+• If both inputs can be successfully converted into double values, calculate the BMI.
+
+• Print the calculated BMI rounded to exactly two decimal places.
+
+• If either input cannot be converted into a double value, print:
+
+Error: Invalid input
+Note: The height must be non-zero to calculate a finite BMI value. If the height is zero, treat it as invalid input and print:
+Error: Invalid input
+*/
+import java.util.Scanner;
+ 
+public class BMICalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            String w = sc.hasNextLine() ? sc.nextLine().trim() : "";
+            String h = sc.hasNextLine() ? sc.nextLine().trim() : "";
+            double weight = Double.parseDouble(w);
+            double height = Double.parseDouble(h);
+            if (height == 0) {
+                throw new ArithmeticException("Height cannot be zero");
+            }
+            double bmi = weight / (height * height);
+            if (Double.isNaN(bmi) || Double.isInfinite(bmi)) {
+                throw new ArithmeticException("Invalid BMI");
+            }
+            System.out.printf("%.2f%n", bmi);
+        } catch (NumberFormatException | ArithmeticException e) {
+            System.out.println("Error: Invalid input");
+        }
+        sc.close();
+    }
+}
